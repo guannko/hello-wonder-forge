@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Play, BarChart3, Target, Lightbulb } from "lucide-react";
+import InteractiveDemo from "./InteractiveDemo";
 
 const DemoSection = () => {
   return (
@@ -23,38 +24,9 @@ const DemoSection = () => {
           </p>
         </div>
 
-        {/* Demo Video Placeholder */}
-        <div className="max-w-4xl mx-auto mb-16">
-          <div className="relative bg-gradient-hero rounded-3xl p-2 shadow-strong">
-            <div className="bg-background rounded-2xl p-8 md:p-12">
-              <div className="aspect-video bg-gradient-to-br from-primary/10 to-ai-purple/10 rounded-xl flex items-center justify-center relative overflow-hidden">
-                {/* Background Pattern */}
-                <div className="absolute inset-0 bg-gradient-ai opacity-20 animate-gradient-flow"></div>
-                
-                {/* Play Button */}
-                <div className="relative z-10 text-center">
-                  <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-strong mb-6 mx-auto hover:scale-110 transition-transform duration-300 cursor-pointer">
-                    <Play className="w-8 h-8 text-primary ml-1" fill="currentColor" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-foreground mb-2">Live AI Analysis Demo</h3>
-                  <p className="text-muted-foreground">See real results in 60 seconds</p>
-                </div>
-
-                {/* Floating Elements */}
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-medium animate-pulse">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm font-medium">Analyzing...</span>
-                  </div>
-                </div>
-                
-                <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-medium">
-                  <div className="text-xs text-muted-foreground">Visibility Score</div>
-                  <div className="text-2xl font-bold text-primary">87%</div>
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* Interactive Demo */}
+        <div className="mb-16">
+          <InteractiveDemo />
         </div>
 
         {/* Features Grid */}
