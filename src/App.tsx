@@ -13,6 +13,7 @@ import SignUp from "./pages/SignUp";
 import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
 import MyAnalyses from "./pages/MyAnalyses";
+import AnalysisDetails from "./pages/AnalysisDetails";
 import Competitors from "./pages/Competitors";
 import UserSettings from "./pages/UserSettings";
 import Billing from "./pages/Billing";
@@ -48,6 +49,7 @@ const App = () => (
           >
             <Route index element={<Dashboard />} />
             <Route path="analyses" element={<MyAnalyses />} />
+            <Route path="analyses/:id" element={<AnalysisDetails />} />
             <Route path="competitors" element={<Competitors />} />
             <Route path="settings" element={<UserSettings />} />
             <Route path="billing" element={<Billing />} />

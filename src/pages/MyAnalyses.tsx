@@ -3,11 +3,14 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
-import { FileText } from "lucide-react";
+import { FileText, Eye } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function MyAnalyses() {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const { data: analyses, isLoading } = useQuery({
     queryKey: ["all-analyses", user?.id],
@@ -80,6 +83,13 @@ export default function MyAnalyses() {
                       </ul>
                     </div>
                   )}
+                  <Button
+                    onClick={() => navigate(`/dashboard/analyses/${analysis.id}`)}
+                    className="w-full"
+                  >
+                    <Eye className="h-4 w-4 mr-2" />
+                    View Full Analysis
+                  </Button>
                 </div>
               </CardContent>
             </Card>
