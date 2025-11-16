@@ -39,9 +39,9 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-background mb-4">Product</h4>
             <ul className="space-y-3">
               <li><a href="#features" className="text-background/70 hover:text-background transition-colors">Features</a></li>
-              <li><a href="#how-it-works" className="text-background/70 hover:text-background transition-colors">How it Works</a></li>
               <li><a href="#pricing" className="text-background/70 hover:text-background transition-colors">Pricing</a></li>
-              <li><a href="#api" className="text-background/70 hover:text-background transition-colors">API</a></li>
+              <li><a href="/blog" className="text-background/70 hover:text-background transition-colors">Blog</a></li>
+              <li><a href="/contact" className="text-background/70 hover:text-background transition-colors">Contact</a></li>
             </ul>
           </div>
 
@@ -49,10 +49,8 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold text-background mb-4">Company</h4>
             <ul className="space-y-3">
-              <li><a href="#about" className="text-background/70 hover:text-background transition-colors">About</a></li>
-              <li><a href="#blog" className="text-background/70 hover:text-background transition-colors">Blog</a></li>
-              <li><a href="#careers" className="text-background/70 hover:text-background transition-colors">Careers</a></li>
-              <li><a href="#contact" className="text-background/70 hover:text-background transition-colors">Contact</a></li>
+              <li><a href="/privacy-policy" className="text-background/70 hover:text-background transition-colors">Privacy Policy</a></li>
+              <li><a href="/terms" className="text-background/70 hover:text-background transition-colors">Terms of Service</a></li>
             </ul>
           </div>
 
@@ -80,7 +78,7 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="text-background/70 text-sm">
-            © 2024 Brain Index. All rights reserved.
+            © 2025 Brain Index. All rights reserved.
           </div>
           <div className="flex space-x-6 text-sm">
             <a href="#privacy" className="text-background/70 hover:text-background transition-colors">
