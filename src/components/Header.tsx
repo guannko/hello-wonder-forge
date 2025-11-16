@@ -12,11 +12,10 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <img 
-              src="/images/brain-index-logo.png" 
-              alt="Brain Index" 
-              className="h-10 w-auto"
-            />
+            <div className="text-2xl font-bold">
+              <span className="text-foreground">BRAIN </span>
+              <span className="text-brand-orange">INDEX</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
