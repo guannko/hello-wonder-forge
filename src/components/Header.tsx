@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,11 +36,11 @@ const Header = () => {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" className="text-foreground hover:text-primary">
-              Login
+            <Button variant="ghost" className="text-foreground hover:text-primary" asChild>
+              <Link to="/login">Login</Link>
             </Button>
-            <Button className="bg-gradient-primary shadow-medium hover:shadow-strong transition-all duration-300">
-              Sign Up
+            <Button className="bg-gradient-primary shadow-medium hover:shadow-strong transition-all duration-300" asChild>
+              <Link to="/signup">Sign Up</Link>
             </Button>
           </div>
 
@@ -69,11 +70,11 @@ const Header = () => {
                 Pricing
               </a>
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="ghost" className="text-foreground hover:text-primary">
-                  Login
+                <Button variant="ghost" className="text-foreground hover:text-primary" asChild>
+                  <Link to="/login">Login</Link>
                 </Button>
-                <Button className="bg-gradient-primary shadow-medium">
-                  Sign Up
+                <Button className="bg-gradient-primary shadow-medium" asChild>
+                  <Link to="/signup">Sign Up</Link>
                 </Button>
               </div>
             </nav>
