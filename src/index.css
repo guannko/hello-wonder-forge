@@ -221,4 +221,12 @@ All colors MUST be HSL.
   .animation-delay-2000 {
     animation-delay: 2s;
   }
+  
+  /* Text outline effect */
+  .text-outline {
+    -webkit-text-stroke: 2px hsl(var(--foreground));
+    -webkit-text-fill-color: transparent;
+    text-stroke: 2px hsl(var(--foreground));
+    paint-order: stroke fill;
+  }
 }
