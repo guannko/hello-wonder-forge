@@ -24,6 +24,24 @@ const DemoSection = () => {
           </p>
         </div>
 
+        {/* Video Demo */}
+        <div className="mb-16 max-w-5xl mx-auto">
+          <div className="relative rounded-2xl overflow-hidden shadow-strong bg-gradient-to-br from-primary/20 to-ai-purple/20 p-8">
+            <div className="aspect-video rounded-xl overflow-hidden shadow-medium">
+              <video 
+                className="w-full h-full object-cover"
+                autoPlay 
+                loop 
+                muted 
+                playsInline
+              >
+                <source src="/video/demo.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+
         {/* Interactive Demo */}
         <div className="mb-16">
           <InteractiveDemo />
