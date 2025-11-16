@@ -30,7 +30,7 @@ const HeroSection = () => {
                 <span className="text-sm font-medium">AI Visibility Analytics</span>
               </div>
               
-              <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+            <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
                 Is Your Brand
                 <br />
                 <span className="bg-gradient-to-r from-white to-brand-orange-light bg-clip-text text-transparent">
@@ -39,62 +39,21 @@ const HeroSection = () => {
               </h1>
             </div>
 
-            <div className="space-y-4 text-lg text-white/90">
-              <p className="leading-relaxed">
-                Check how ChatGPT, Claude, and other AI systems see your brand
-              </p>
-              <p className="leading-relaxed">
-                Discover your AI visibility score, track competitors, and get actionable 
-                insights to improve your presence in AI-powered search results.
-              </p>
-            </div>
+            <p className="text-xl text-white/90 leading-relaxed">
+              Check how ChatGPT, Claude, and other AI systems see your brand
+            </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                size="lg" 
-                className="bg-white text-primary hover:bg-white/90 shadow-strong transition-all duration-300 hover:scale-105"
-              >
-                <Search className="w-5 h-5 mr-2" />
-                Analyze Now
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm"
-              >
-                Learn More
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white">10+</div>
-                <div className="text-sm text-white/70">AI systems analyzed</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white">Real-time</div>
-                <div className="text-sm text-white/70">monitoring</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white">Competitor</div>
-                <div className="text-sm text-white/70">tracking</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white">Actionable</div>
-                <div className="text-sm text-white/70">insights</div>
-              </div>
-            </div>
           </div>
 
           {/* Right Column - Quick Analysis Form */}
           <div className="animate-slide-in-right">
-            <div className="bg-white/95 backdrop-blur-lg rounded-2xl p-8 shadow-strong">
+            <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-strong border border-white/20">
               <div className="space-y-6">
-                <div className="text-center">
-                  <h3 className="text-2xl font-bold text-foreground mb-2">Quick Analysis</h3>
-                  <p className="text-muted-foreground">Enter your brand name to get started</p>
+                <div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Quick Analysis</h3>
+                  <p className="text-white/80">
+                    Enter your brand name
+                  </p>
                 </div>
 
                 <div className="space-y-4">
@@ -103,39 +62,20 @@ const HeroSection = () => {
                     placeholder="Enter your brand name"
                     value={brandName}
                     onChange={(e) => setBrandName(e.target.value)}
-                    className="h-12 text-lg"
+                    className="bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:bg-white/30 transition-all h-12"
                   />
-                  <Button 
+
+                  <Button
+                    size="lg"
                     onClick={handleAnalyze}
-                    className="w-full h-12 bg-gradient-primary shadow-medium hover:shadow-strong transition-all duration-300"
-                    disabled={!brandName.trim()}
+                    className="w-full bg-primary hover:bg-primary-dark text-white border-0 transition-all duration-300 hover:scale-105 h-12"
                   >
-                    <Search className="w-5 h-5 mr-2" />
-                    Check AI Visibility
+                    CHECK AI VISIBILITY
                   </Button>
-                </div>
 
-                <div className="text-center text-sm text-muted-foreground">
-                  Free analysis • No credit card required
-                </div>
-
-                {/* AI Logos */}
-                <div className="flex justify-center items-center space-x-4 pt-4 border-t border-border/50">
-                  <div className="text-xs text-muted-foreground">Analyzing:</div>
-                  <div className="flex space-x-3">
-                    <div className="w-6 h-6 bg-ai-purple/20 rounded text-xs flex items-center justify-center font-bold text-ai-purple">
-                      C
-                    </div>
-                    <div className="w-6 h-6 bg-ai-cyan/20 rounded text-xs flex items-center justify-center font-bold text-ai-cyan">
-                      G
-                    </div>
-                    <div className="w-6 h-6 bg-ai-emerald/20 rounded text-xs flex items-center justify-center font-bold text-ai-emerald">
-                      P
-                    </div>
-                    <div className="w-6 h-6 bg-brand-orange/20 rounded text-xs flex items-center justify-center font-bold text-brand-orange">
-                      C
-                    </div>
-                  </div>
+                  <p className="text-center text-white/70 text-sm">
+                    Free analysis • No credit card required
+                  </p>
                 </div>
               </div>
             </div>
