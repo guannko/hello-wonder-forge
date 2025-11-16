@@ -20,6 +20,70 @@ serve(async (req) => {
       throw new Error('Brand name is required');
     }
 
+    // Get user from auth header
+    const authHeader = req.headers.get('Authorization');
+    let userId = null;
+    let supabaseClient = null;
+
+    if (authHeader) {
+      supabaseClient = createClient(
+        Deno.env.get('SUPABASE_URL') ?? '',
+        Deno.env.get('SUPABASE_ANON_KEY') ?? '',
+        {
+          global: {
+            headers: { Authorization: authHeader },
+          },
+        }
+      );
+
+      const { data: { user } } = await supabaseClient.auth.getUser();
+
+      if (user) {
+        userId = user.id;
+
+        // Check rate limit: 10 analyses per hour
+        const { data: rateLimitCheck, error: rateLimitError } = await supabaseClient
+          .rpc('check_rate_limit', {
+            _user_id: userId,
+            _action: 'analyze_brand',
+            _max_requests: 10,
+            _window_minutes: 60
+          });
+
+        if (rateLimitError) {
+          console.error('Rate limit check error:', rateLimitError);
+        }
+
+        if (rateLimitCheck === false) {
+          return new Response(
+            JSON.stringify({ 
+              error: 'Rate limit exceeded. You can only perform 10 analyses per hour.' 
+            }),
+            {
+              status: 429,
+              headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+            }
+          );
+        }
+
+        // Check cache
+        const { data: cachedData } = await supabaseClient
+          .from('analyses_cache')
+          .select('cache_data')
+          .eq('brand_name', brandName.trim().toLowerCase())
+          .gt('expires_at', new Date().toISOString())
+          .maybeSingle();
+
+        if (cachedData?.cache_data) {
+          console.log('Returning cached analysis for:', brandName);
+          return new Response(JSON.stringify(cachedData.cache_data), {
+            status: 200,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          });
+        }
+      }
+    }
+
     // Call Railway API
     const apiResponse = await fetch('https://primary-production-636cc.up.railway.app/api/analyze', {
       method: 'POST',
@@ -38,46 +102,50 @@ serve(async (req) => {
     const analysisData = await apiResponse.json();
     console.log('Analysis completed:', analysisData);
 
-    // Get user from auth header
-    const authHeader = req.headers.get('Authorization');
-    if (authHeader) {
-      const supabaseClient = createClient(
-        Deno.env.get('SUPABASE_URL') ?? '',
-        Deno.env.get('SUPABASE_ANON_KEY') ?? '',
-        {
-          global: {
-            headers: { Authorization: authHeader },
-          },
-        }
-      );
+    // Cache the result for authenticated users
+    if (userId && supabaseClient) {
+      await supabaseClient
+        .from('analyses_cache')
+        .upsert({
+          brand_name: brandName.trim().toLowerCase(),
+          cache_data: analysisData,
+          expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+        }, {
+          onConflict: 'brand_name'
+        });
 
-      const { data: { user } } = await supabaseClient.auth.getUser();
+      // Save to database
+      const { error: insertError } = await supabaseClient
+        .from('analyses')
+        .insert({
+          user_id: userId,
+          brand_name: brandName.trim(),
+          overall_score: analysisData.overall_score || null,
+          ai_systems: analysisData.ai_systems || [],
+          findings: analysisData.findings || [],
+          recommendations: analysisData.recommendations || [],
+          status: 'completed',
+        });
 
-      if (user) {
-        // Save to database
-        const { error: insertError } = await supabaseClient
-          .from('analyses')
-          .insert({
-            user_id: user.id,
-            brand_name: brandName.trim(),
-            overall_score: analysisData.overall_score || null,
-            ai_systems: analysisData.ai_systems || [],
-            findings: analysisData.findings || [],
-            recommendations: analysisData.recommendations || [],
-            status: 'completed',
-          });
+      if (insertError) {
+        console.error('Error saving analysis:', insertError);
+      } else {
+        console.log('Analysis saved to database');
 
-        if (insertError) {
-          console.error('Error saving analysis:', insertError);
-          // Don't throw - still return the analysis even if save fails
-        } else {
-          console.log('Analysis saved to database');
-          
+        // Check if user wants email notifications
+        const { data: preferences } = await supabaseClient
+          .from('email_preferences')
+          .select('analysis_complete')
+          .eq('user_id', userId)
+          .maybeSingle();
+
+        // Send email if enabled (default is true if no preference set)
+        if (!preferences || preferences.analysis_complete !== false) {
           // Get user email for notification
           const { data: profile } = await supabaseClient
             .from('profiles')
             .select('email')
-            .eq('id', user.id)
+            .eq('id', userId)
             .single();
 
           // Send completion email notification (fire and forget)
@@ -95,7 +163,7 @@ serve(async (req) => {
                 data: {
                   brandName: brandName.trim(),
                   overallScore: analysisData.overall_score,
-                  findings: analysisData.findings,
+                  completedAt: new Date().toISOString(),
                 },
               }),
             }).catch(err => console.error('Email notification failed:', err));

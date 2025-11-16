@@ -50,6 +50,30 @@ export type Database = {
         }
         Relationships: []
       }
+      analyses_cache: {
+        Row: {
+          brand_name: string
+          cache_data: Json
+          created_at: string
+          expires_at: string
+          id: string
+        }
+        Insert: {
+          brand_name: string
+          cache_data: Json
+          created_at?: string
+          expires_at?: string
+          id?: string
+        }
+        Update: {
+          brand_name?: string
+          cache_data?: Json
+          created_at?: string
+          expires_at?: string
+          id?: string
+        }
+        Relationships: []
+      }
       competitors: {
         Row: {
           competitor_name: string
@@ -80,6 +104,47 @@ export type Database = {
         }
         Relationships: []
       }
+      email_preferences: {
+        Row: {
+          analysis_complete: boolean
+          competitor_updates: boolean
+          created_at: string
+          id: string
+          marketing_emails: boolean
+          updated_at: string
+          user_id: string
+          weekly_summary: boolean
+        }
+        Insert: {
+          analysis_complete?: boolean
+          competitor_updates?: boolean
+          created_at?: string
+          id?: string
+          marketing_emails?: boolean
+          updated_at?: string
+          user_id: string
+          weekly_summary?: boolean
+        }
+        Update: {
+          analysis_complete?: boolean
+          competitor_updates?: boolean
+          created_at?: string
+          id?: string
+          marketing_emails?: boolean
+          updated_at?: string
+          user_id?: string
+          weekly_summary?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_preferences_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -109,6 +174,41 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      rate_limits: {
+        Row: {
+          action: string
+          count: number
+          created_at: string
+          id: string
+          user_id: string
+          window_start: string
+        }
+        Insert: {
+          action: string
+          count?: number
+          created_at?: string
+          id?: string
+          user_id: string
+          window_start?: string
+        }
+        Update: {
+          action?: string
+          count?: number
+          created_at?: string
+          id?: string
+          user_id?: string
+          window_start?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rate_limits_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       subscriptions: {
         Row: {
@@ -166,6 +266,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      check_rate_limit: {
+        Args: {
+          _action: string
+          _max_requests: number
+          _user_id: string
+          _window_minutes: number
+        }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
