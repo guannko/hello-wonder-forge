@@ -48,6 +48,7 @@
 - ✅ Brand visibility analysis
 - ✅ Admin panel
 - ✅ Rate limiting & caching
+- ✅ SEO/GEO optimization (Schema.org, sitemap, structured data)
 - ⚠️ Email notifications (logs only - needs RESEND_API_KEY)
 
 ## 📖 Full Documentation in README Files
