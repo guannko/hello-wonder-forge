@@ -47,16 +47,34 @@ const HeroSection = () => {
 
   return (
     <section id="home" className="pt-20 min-h-screen bg-gradient-hero relative overflow-hidden">
-      {/* Animated Background Elements */}
+      {/* Multi-layer Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-ai-purple/10 to-ai-cyan/20"></div>
       
-      {/* Floating orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-ai-purple/30 rounded-full blur-3xl animate-pulse-glow"></div>
+      {/* Animated wave layers */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-ai-purple/20 via-transparent to-ai-cyan/20 animate-wave"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-l from-primary/20 via-transparent to-brand-orange/20 animate-wave-slow"></div>
+      </div>
+
+      {/* Shimmer effect overlay */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent w-[200%] h-[200%] animate-shimmer"></div>
+      </div>
+      
+      {/* Floating animated orbs with different speeds */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-ai-purple/30 rounded-full blur-3xl animate-pulse-glow animate-float"></div>
       <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-ai-cyan/30 rounded-full blur-3xl animate-pulse-glow animation-delay-1000"></div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-orange/20 rounded-full blur-3xl animate-pulse-glow animation-delay-500"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-orange/20 rounded-full blur-3xl animate-pulse-glow animation-delay-500 animate-wave-slow"></div>
+      
+      {/* Additional smaller orbs */}
+      <div className="absolute top-1/3 right-1/3 w-48 h-48 bg-primary/25 rounded-full blur-2xl animate-pulse-glow animation-delay-1500"></div>
+      <div className="absolute bottom-1/3 left-1/3 w-64 h-64 bg-ai-cyan/25 rounded-full blur-2xl animate-pulse-glow animation-delay-2000 animate-float"></div>
       
       {/* Grid pattern overlay */}
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30"></div>
+      
+      {/* Radial gradient spotlight */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent"></div>
       
       <div className="container mx-auto px-4 py-20 relative z-10">
         {/* Centered Content */}
