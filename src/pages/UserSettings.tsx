@@ -7,11 +7,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { Mail, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function UserSettings() {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { data: profile } = useQuery({
     queryKey: ["profile", user?.id],
@@ -113,6 +116,32 @@ export default function UserSettings() {
               {updateMutation.isPending ? "Saving..." : "Save Changes"}
             </Button>
           </form>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Email Notifications</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Mail className="h-5 w-5 text-primary" />
+              <div>
+                <p className="font-medium">Manage email preferences</p>
+                <p className="text-sm text-muted-foreground">
+                  Control which emails you receive
+                </p>
+              </div>
+            </div>
+            <Button
+              variant="outline"
+              onClick={() => navigate("/dashboard/settings/emails")}
+            >
+              Configure
+              <ArrowRight className="h-4 w-4 ml-2" />
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>

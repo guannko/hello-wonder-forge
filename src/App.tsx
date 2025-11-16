@@ -17,6 +17,7 @@ import AnalysisDetails from "./pages/AnalysisDetails";
 import BrandHistory from "./pages/BrandHistory";
 import Competitors from "./pages/Competitors";
 import UserSettings from "./pages/UserSettings";
+import EmailSettings from "./pages/EmailSettings";
 import Billing from "./pages/Billing";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminUsers from "./pages/admin/AdminUsers";
@@ -58,6 +59,7 @@ const App = () => (
             <Route path="history" element={<BrandHistory />} />
             <Route path="competitors" element={<Competitors />} />
             <Route path="settings" element={<UserSettings />} />
+            <Route path="settings/emails" element={<EmailSettings />} />
             <Route path="billing" element={<Billing />} />
           </Route>
 

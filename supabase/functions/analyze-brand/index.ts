@@ -72,6 +72,34 @@ serve(async (req) => {
           // Don't throw - still return the analysis even if save fails
         } else {
           console.log('Analysis saved to database');
+          
+          // Get user email for notification
+          const { data: profile } = await supabaseClient
+            .from('profiles')
+            .select('email')
+            .eq('id', user.id)
+            .single();
+
+          // Send completion email notification (fire and forget)
+          if (profile?.email) {
+            fetch(`${Deno.env.get('SUPABASE_URL')}/functions/v1/send-email`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authHeader || '',
+              },
+              body: JSON.stringify({
+                to: profile.email,
+                subject: `Your ${brandName} Analysis is Complete!`,
+                type: 'analysis_complete',
+                data: {
+                  brandName: brandName.trim(),
+                  overallScore: analysisData.overall_score,
+                  findings: analysisData.findings,
+                },
+              }),
+            }).catch(err => console.error('Email notification failed:', err));
+          }
         }
       }
     }
