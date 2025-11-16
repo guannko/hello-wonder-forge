@@ -1,4 +1,4 @@
-import { LayoutDashboard, FileText, Users, Settings, CreditCard, LogOut } from "lucide-react";
+import { LayoutDashboard, FileText, Users, Settings, CreditCard, LogOut, Activity } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useAuth } from "@/contexts/AuthContext";
 import {
@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 const menuItems = [
   { title: "Overview", url: "/dashboard", icon: LayoutDashboard },
   { title: "My Analyses", url: "/dashboard/analyses", icon: FileText },
+  { title: "Analytics History", url: "/dashboard/history", icon: Activity },
   { title: "Competitors", url: "/dashboard/competitors", icon: Users },
   { title: "Settings", url: "/dashboard/settings", icon: Settings },
   { title: "Billing", url: "/dashboard/billing", icon: CreditCard },
