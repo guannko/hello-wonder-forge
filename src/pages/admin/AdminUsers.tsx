@@ -1,7 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -10,16 +13,40 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { UserManagementDialog } from "@/components/admin/UserManagementDialog";
 import { format } from "date-fns";
+import { Search, Edit, Trash2, UserX, UserCheck } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 export default function AdminUsers() {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [roleFilter, setRoleFilter] = useState<string>("all");
+  const [planFilter, setPlanFilter] = useState<string>("all");
+  const [selectedUser, setSelectedUser] = useState<any>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   const { data: users, isLoading } = useQuery({
-    queryKey: ["admin-users"],
+    queryKey: ["admin-users", searchQuery, roleFilter, planFilter],
     queryFn: async () => {
-      const { data: profiles, error: profilesError } = await supabase
+      let query = supabase
         .from("profiles")
         .select("*")
         .order("created_at", { ascending: false });
+
+      if (searchQuery) {
+        query = query.or(`email.ilike.%${searchQuery}%,full_name.ilike.%${searchQuery}%`);
+      }
+
+      const { data: profiles, error: profilesError } = await query;
 
       if (profilesError) throw profilesError;
 
@@ -45,7 +72,45 @@ export default function AdminUsers() {
         })
       );
 
-      return usersWithDetails;
+      // Apply filters
+      let filteredUsers = usersWithDetails;
+      
+      if (roleFilter !== "all") {
+        filteredUsers = filteredUsers.filter(u => 
+          u.roles.includes(roleFilter as "admin" | "user")
+        );
+      }
+
+      if (planFilter !== "all") {
+        filteredUsers = filteredUsers.filter(u => u.subscription?.plan === planFilter);
+      }
+
+      return filteredUsers;
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: async (userId: string) => {
+      const { error } = await supabase
+        .from("profiles")
+        .delete()
+        .eq("id", userId);
+
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["admin-users"] });
+      toast({
+        title: "User deleted",
+        description: "User has been removed from the system.",
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error deleting user",
+        description: error.message,
+        variant: "destructive",
+      });
     },
   });
 
@@ -69,6 +134,38 @@ export default function AdminUsers() {
       <Card>
         <CardHeader>
           <CardTitle>All Users ({users?.length || 0})</CardTitle>
+          <div className="flex flex-col sm:flex-row gap-4 mt-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search by email or name..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            <Select value={roleFilter} onValueChange={setRoleFilter}>
+              <SelectTrigger className="w-full sm:w-[180px]">
+                <SelectValue placeholder="Filter by role" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Roles</SelectItem>
+                <SelectItem value="admin">Admin</SelectItem>
+                <SelectItem value="user">User</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={planFilter} onValueChange={setPlanFilter}>
+              <SelectTrigger className="w-full sm:w-[180px]">
+                <SelectValue placeholder="Filter by plan" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Plans</SelectItem>
+                <SelectItem value="free">Free</SelectItem>
+                <SelectItem value="pro">Pro</SelectItem>
+                <SelectItem value="enterprise">Enterprise</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </CardHeader>
         <CardContent>
           <Table>
@@ -80,6 +177,7 @@ export default function AdminUsers() {
                 <TableHead>Role</TableHead>
                 <TableHead>Plan</TableHead>
                 <TableHead>Registered</TableHead>
+                <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -106,11 +204,36 @@ export default function AdminUsers() {
                     <TableCell>
                       {format(new Date(user.created_at), "PP")}
                     </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => {
+                            setSelectedUser(user);
+                            setDialogOpen(true);
+                          }}
+                        >
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => {
+                            if (confirm("Are you sure you want to delete this user?")) {
+                              deleteMutation.mutate(user.id);
+                            }
+                          }}
+                        >
+                          <Trash2 className="h-4 w-4 text-destructive" />
+                        </Button>
+                      </div>
+                    </TableCell>
                   </TableRow>
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={6} className="text-center text-muted-foreground">
+                  <TableCell colSpan={7} className="text-center text-muted-foreground">
                     No users found
                   </TableCell>
                 </TableRow>
@@ -119,6 +242,12 @@ export default function AdminUsers() {
           </Table>
         </CardContent>
       </Card>
+
+      <UserManagementDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        user={selectedUser}
+      />
     </div>
   );
 }
