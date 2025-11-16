@@ -15,7 +15,7 @@ const Header = () => {
             <div className="text-2xl font-bold flex items-center gap-0.5">
               <span className="text-foreground">BR</span>
               <span className="inline-flex items-center justify-center px-1 py-0.5 bg-transparent border-2 border-foreground">
-                <span className="text-outline">AI</span>
+                <span className="text-brand-orange">AI</span>
               </span>
               <span className="text-foreground">N </span>
               <span className="text-brand-orange">INDEX</span>
