@@ -51,51 +51,60 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-ai-purple/10 to-ai-cyan/20"></div>
       
       {/* Thematic Background Elements - GEO/AI Theme */}
-      <div className="absolute inset-0 overflow-hidden opacity-20">
-        {/* Floating AI System Names */}
-        <div className="absolute top-20 left-10 animate-float animation-delay-500 text-white/40 font-bold text-2xl" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
+      <div className="absolute inset-0 overflow-hidden opacity-30">
+        {/* Floating AI System Names - Larger and more visible */}
+        <div className="absolute top-20 left-10 animate-float animation-delay-500 text-white/50 font-bold text-3xl" style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.3), -1px -1px 0 rgba(0,0,0,0.3), 1px -1px 0 rgba(0,0,0,0.3), -1px 1px 0 rgba(0,0,0,0.3)' }}>
           ChatGPT
         </div>
-        <div className="absolute top-40 right-20 animate-float animation-delay-1000 text-white/40 font-bold text-2xl" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
+        <div className="absolute top-16 left-40 animate-float animation-delay-800 text-white/45 font-semibold text-xl" style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.3), -1px -1px 0 rgba(0,0,0,0.3), 1px -1px 0 rgba(0,0,0,0.3), -1px 1px 0 rgba(0,0,0,0.3)' }}>
+          SEO
+        </div>
+        <div className="absolute top-40 right-20 animate-float animation-delay-1000 text-white/50 font-bold text-3xl" style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.3), -1px -1px 0 rgba(0,0,0,0.3), 1px -1px 0 rgba(0,0,0,0.3), -1px 1px 0 rgba(0,0,0,0.3)' }}>
           Claude
         </div>
-        <div className="absolute bottom-40 left-1/4 animate-float animation-delay-1500 text-white/40 font-bold text-2xl" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
+        <div className="absolute bottom-40 left-1/4 animate-float animation-delay-1500 text-white/50 font-bold text-3xl" style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.3), -1px -1px 0 rgba(0,0,0,0.3), 1px -1px 0 rgba(0,0,0,0.3), -1px 1px 0 rgba(0,0,0,0.3)' }}>
           Gemini
         </div>
-        <div className="absolute top-1/3 right-1/4 animate-float animation-delay-2000 text-white/40 font-bold text-2xl" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
+        <div className="absolute top-1/3 right-1/4 animate-float animation-delay-2000 text-white/50 font-bold text-3xl" style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.3), -1px -1px 0 rgba(0,0,0,0.3), 1px -1px 0 rgba(0,0,0,0.3), -1px 1px 0 rgba(0,0,0,0.3)' }}>
           Perplexity
         </div>
         
-        {/* GEO Keywords floating */}
-        <div className="absolute top-1/2 left-20 animate-float animation-delay-500 text-brand-orange/40 font-semibold text-xl" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
+        {/* GEO Keywords floating - Larger */}
+        <div className="absolute top-1/2 left-20 animate-float animation-delay-500 text-brand-orange/50 font-semibold text-2xl" style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.3), -1px -1px 0 rgba(0,0,0,0.3), 1px -1px 0 rgba(0,0,0,0.3), -1px 1px 0 rgba(0,0,0,0.3)' }}>
           GEO
         </div>
-        <div className="absolute bottom-1/3 right-1/3 animate-float animation-delay-1000 text-ai-cyan/40 font-semibold text-xl" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
+        <div className="absolute bottom-1/3 right-1/3 animate-float animation-delay-1000 text-ai-cyan/50 font-semibold text-2xl" style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.3), -1px -1px 0 rgba(0,0,0,0.3), 1px -1px 0 rgba(0,0,0,0.3), -1px 1px 0 rgba(0,0,0,0.3)' }}>
           Analytics
         </div>
-        <div className="absolute top-2/3 left-1/3 animate-float animation-delay-1500 text-primary/40 font-semibold text-xl" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
+        <div className="absolute top-2/3 left-1/3 animate-float animation-delay-1500 text-primary/50 font-semibold text-2xl" style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.3), -1px -1px 0 rgba(0,0,0,0.3), 1px -1px 0 rgba(0,0,0,0.3), -1px 1px 0 rgba(0,0,0,0.3)' }}>
           Visibility
         </div>
-        <div className="absolute bottom-20 right-1/4 animate-float animation-delay-2000 text-brand-orange/40 font-semibold text-xl" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
+        <div className="absolute bottom-20 right-1/4 animate-float animation-delay-2000 text-brand-orange/50 font-semibold text-2xl" style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.3), -1px -1px 0 rgba(0,0,0,0.3), 1px -1px 0 rgba(0,0,0,0.3), -1px 1px 0 rgba(0,0,0,0.3)' }}>
           AI Search
+        </div>
+        <div className="absolute bottom-32 right-16 animate-float animation-delay-1200 text-white/45 font-semibold text-xl" style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.3), -1px -1px 0 rgba(0,0,0,0.3), 1px -1px 0 rgba(0,0,0,0.3), -1px 1px 0 rgba(0,0,0,0.3)' }}>
+          Automation
+        </div>
+        <div className="absolute bottom-16 right-40 animate-float animation-delay-1700 text-ai-purple/45 font-semibold text-xl" style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.3), -1px -1px 0 rgba(0,0,0,0.3), 1px -1px 0 rgba(0,0,0,0.3), -1px 1px 0 rgba(0,0,0,0.3)' }}>
+          Ranking
         </div>
         
         {/* Abstract graph lines */}
         <svg className="absolute top-1/4 right-1/3 w-32 h-32 animate-pulse-glow animation-delay-500" viewBox="0 0 100 100">
-          <polyline points="10,80 30,60 50,70 70,40 90,20" fill="none" stroke="white" strokeWidth="2" opacity="0.3"/>
+          <polyline points="10,80 30,60 50,70 70,40 90,20" fill="none" stroke="white" strokeWidth="2" opacity="0.4"/>
         </svg>
         <svg className="absolute bottom-1/4 left-1/4 w-40 h-40 animate-pulse-glow animation-delay-1500" viewBox="0 0 100 100">
-          <polyline points="10,90 25,70 40,75 60,50 80,30 95,15" fill="none" stroke="white" strokeWidth="2" opacity="0.3"/>
+          <polyline points="10,90 25,70 40,75 60,50 80,30 95,15" fill="none" stroke="white" strokeWidth="2" opacity="0.4"/>
         </svg>
         
-        {/* Data points/metrics */}
-        <div className="absolute top-1/4 left-1/3 animate-fade-in animation-delay-1000 text-white/30 text-sm font-mono" style={{ textShadow: '0 0 8px rgba(0,0,0,0.8)' }}>
+        {/* Data points/metrics - Larger */}
+        <div className="absolute top-1/4 left-1/3 animate-fade-in animation-delay-1000 text-white/40 text-base font-mono" style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.3), -1px -1px 0 rgba(0,0,0,0.3), 1px -1px 0 rgba(0,0,0,0.3), -1px 1px 0 rgba(0,0,0,0.3)' }}>
           Score: 85%
         </div>
-        <div className="absolute bottom-1/2 right-20 animate-fade-in animation-delay-1500 text-white/30 text-sm font-mono" style={{ textShadow: '0 0 8px rgba(0,0,0,0.8)' }}>
+        <div className="absolute bottom-1/2 right-20 animate-fade-in animation-delay-1500 text-white/40 text-base font-mono" style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.3), -1px -1px 0 rgba(0,0,0,0.3), 1px -1px 0 rgba(0,0,0,0.3), -1px 1px 0 rgba(0,0,0,0.3)' }}>
           Mentions: 247
         </div>
-        <div className="absolute top-1/2 right-1/3 animate-fade-in animation-delay-2000 text-white/30 text-sm font-mono" style={{ textShadow: '0 0 8px rgba(0,0,0,0.8)' }}>
+        <div className="absolute top-1/2 right-1/3 animate-fade-in animation-delay-2000 text-white/40 text-base font-mono" style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.3), -1px -1px 0 rgba(0,0,0,0.3), 1px -1px 0 rgba(0,0,0,0.3), -1px 1px 0 rgba(0,0,0,0.3)' }}>
           Rank: #1
         </div>
       </div>
