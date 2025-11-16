@@ -50,12 +50,62 @@ const HeroSection = () => {
       {/* Multi-layer Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-ai-purple/10 to-ai-cyan/20"></div>
       
+      {/* Thematic Background Elements - GEO/AI Theme */}
+      <div className="absolute inset-0 overflow-hidden opacity-20">
+        {/* Floating AI System Names */}
+        <div className="absolute top-20 left-10 animate-float animation-delay-500 text-white/30 font-bold text-2xl">
+          ChatGPT
+        </div>
+        <div className="absolute top-40 right-20 animate-float animation-delay-1000 text-white/30 font-bold text-2xl">
+          Claude
+        </div>
+        <div className="absolute bottom-40 left-1/4 animate-float animation-delay-1500 text-white/30 font-bold text-2xl">
+          Gemini
+        </div>
+        <div className="absolute top-1/3 right-1/4 animate-float animation-delay-2000 text-white/30 font-bold text-2xl">
+          Perplexity
+        </div>
+        
+        {/* GEO Keywords floating */}
+        <div className="absolute top-1/2 left-20 animate-float animation-delay-500 text-brand-orange/30 font-semibold text-xl">
+          GEO
+        </div>
+        <div className="absolute bottom-1/3 right-1/3 animate-float animation-delay-1000 text-ai-cyan/30 font-semibold text-xl">
+          Analytics
+        </div>
+        <div className="absolute top-2/3 left-1/3 animate-float animation-delay-1500 text-primary/30 font-semibold text-xl">
+          Visibility
+        </div>
+        <div className="absolute bottom-20 right-1/4 animate-float animation-delay-2000 text-brand-orange/30 font-semibold text-xl">
+          AI Search
+        </div>
+        
+        {/* Abstract graph lines */}
+        <svg className="absolute top-1/4 right-1/3 w-32 h-32 animate-pulse-glow animation-delay-500" viewBox="0 0 100 100">
+          <polyline points="10,80 30,60 50,70 70,40 90,20" fill="none" stroke="white" strokeWidth="2" opacity="0.3"/>
+        </svg>
+        <svg className="absolute bottom-1/4 left-1/4 w-40 h-40 animate-pulse-glow animation-delay-1500" viewBox="0 0 100 100">
+          <polyline points="10,90 25,70 40,75 60,50 80,30 95,15" fill="none" stroke="white" strokeWidth="2" opacity="0.3"/>
+        </svg>
+        
+        {/* Data points/metrics */}
+        <div className="absolute top-1/4 left-1/3 animate-fade-in animation-delay-1000 text-white/25 text-sm font-mono">
+          Score: 85%
+        </div>
+        <div className="absolute bottom-1/2 right-20 animate-fade-in animation-delay-1500 text-white/25 text-sm font-mono">
+          Mentions: 247
+        </div>
+        <div className="absolute top-1/2 right-1/3 animate-fade-in animation-delay-2000 text-white/25 text-sm font-mono">
+          Rank: #1
+        </div>
+      </div>
+      
       {/* Shimmer effect overlay */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent w-[200%] h-[200%] animate-shimmer"></div>
       </div>
       
-      {/* Floating animated orbs with different speeds */}
+      {/* Floating animated orbs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-ai-purple/30 rounded-full blur-3xl animate-pulse-glow"></div>
       <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-ai-cyan/30 rounded-full blur-3xl animate-pulse-glow animation-delay-1000"></div>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-orange/20 rounded-full blur-3xl animate-pulse-glow animation-delay-500"></div>
