@@ -43,6 +43,19 @@ serve(async (req) => {
     for (const [userId, analyses] of Object.entries(userAnalyses)) {
       const userAnalysesArray = analyses as any[];
       
+      // Check if user wants weekly summaries
+      const { data: preferences } = await supabaseClient
+        .from('email_preferences')
+        .select('weekly_summary')
+        .eq('user_id', userId)
+        .maybeSingle();
+
+      // Skip if user disabled weekly summaries
+      if (preferences && preferences.weekly_summary === false) {
+        console.log(`User ${userId} has disabled weekly summaries, skipping...`);
+        continue;
+      }
+
       // Get user profile
       const { data: profile } = await supabaseClient
         .from('profiles')
@@ -70,10 +83,11 @@ serve(async (req) => {
           type: 'weekly_summary',
           data: {
             totalAnalyses,
-            averageScore: averageScore.toFixed(1),
-            trend: 'stable', // You could calculate actual trend
-            topBrand: topAnalysis.brand_name,
-            topScore: topAnalysis.overall_score,
+            averageScore,
+            topAnalysis: {
+              brand_name: topAnalysis.brand_name,
+              overall_score: topAnalysis.overall_score
+            },
           },
         }),
       });
