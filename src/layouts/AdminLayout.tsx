@@ -1,6 +1,6 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Outlet } from "react-router-dom";
-import { Shield, LayoutDashboard, Users, FileText, Settings } from "lucide-react";
+import { Shield, LayoutDashboard, Users, FileText, Settings, Activity } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
   Sidebar,
@@ -20,6 +20,7 @@ const adminMenuItems = [
   { title: "Overview", url: "/admin", icon: LayoutDashboard },
   { title: "Users", url: "/admin/users", icon: Users },
   { title: "Analyses", url: "/admin/analyses", icon: FileText },
+  { title: "System", url: "/admin/system", icon: Activity },
   { title: "Settings", url: "/admin/settings", icon: Settings },
 ];
 

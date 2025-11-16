@@ -23,6 +23,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminAnalyses from "./pages/admin/AdminAnalyses";
 import AdminSettings from "./pages/admin/AdminSettings";
+import SystemMonitoring from "./pages/admin/SystemMonitoring";
 import N8NAutomation from "./pages/N8NAutomation";
 import NotFound from "./pages/NotFound";
 import FAQ from "./pages/FAQ";
@@ -74,6 +75,7 @@ const App = () => (
             <Route index element={<AdminDashboard />} />
             <Route path="users" element={<AdminUsers />} />
             <Route path="analyses" element={<AdminAnalyses />} />
+            <Route path="system" element={<SystemMonitoring />} />
             <Route path="settings" element={<AdminSettings />} />
           </Route>
           
