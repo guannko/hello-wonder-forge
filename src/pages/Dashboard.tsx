@@ -4,6 +4,7 @@ import { FileText, TrendingUp, Users, Clock } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
+import OnboardingTour from "@/components/OnboardingTour";
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -71,6 +72,8 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-8">
+      <OnboardingTour />
+      
       <div>
         <h1 className="text-4xl font-bold mb-2">Welcome back!</h1>
         <p className="text-muted-foreground">
