@@ -7,11 +7,13 @@ import PricingSection from "@/components/PricingSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import FAQSchema from "@/components/FAQSchema";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead />
+      <FAQSchema />
       <Header />
       <main>
         <HeroSection />

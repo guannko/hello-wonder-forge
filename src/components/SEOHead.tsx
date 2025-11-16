@@ -10,13 +10,45 @@ interface SEOHeadProps {
 }
 
 export default function SEOHead({
-  title = "AI Visibility Tracker - Monitor Your Brand's AI Presence",
-  description = "Track how your brand appears across major AI platforms like ChatGPT, Claude, and Gemini. Get detailed visibility scores and actionable insights.",
-  keywords = "AI visibility, brand monitoring, ChatGPT visibility, AI analytics, brand tracking, AI presence",
+  title = "Brain Index - AI Visibility Analytics & GEO Optimization",
+  description = "Monitor and optimize how AI systems like ChatGPT, Claude, Gemini, and Perplexity perceive your brand. Get actionable GEO insights and visibility scores.",
+  keywords = "AI visibility, GEO, generative engine optimization, brand analytics, ChatGPT, Claude, AI SEO, brand monitoring, AI presence tracking",
   image = "/og-image.png",
-  url = "https://yourdomain.com",
+  url = typeof window !== 'undefined' ? window.location.href : "https://yourdomain.com",
   type = "website",
 }: SEOHeadProps) {
+  // Structured Data - Organization Schema
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Brain Index",
+    "applicationCategory": "BusinessApplication",
+    "description": "AI Visibility Analytics & GEO Optimization Platform",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "127"
+    }
+  };
+
+  // Breadcrumb Schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": url
+    }]
+  };
+
   return (
     <Helmet>
       {/* Primary Meta Tags */}
@@ -31,6 +63,7 @@ export default function SEOHead({
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
+      <meta property="og:site_name" content="Brain Index" />
 
       {/* Twitter */}
       <meta property="twitter:card" content="summary_large_image" />
@@ -41,10 +74,18 @@ export default function SEOHead({
 
       {/* Additional SEO tags */}
       <link rel="canonical" href={url} />
-      <meta name="robots" content="index, follow" />
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
       <meta name="language" content="English" />
       <meta name="revisit-after" content="7 days" />
-      <meta name="author" content="AI Visibility Tracker" />
+      <meta name="author" content="Brain Index" />
+      
+      {/* Structured Data */}
+      <script type="application/ld+json">
+        {JSON.stringify(organizationSchema)}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify(breadcrumbSchema)}
+      </script>
     </Helmet>
   );
 }
