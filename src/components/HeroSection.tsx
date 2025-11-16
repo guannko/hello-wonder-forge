@@ -53,30 +53,30 @@ const HeroSection = () => {
       {/* Thematic Background Elements - GEO/AI Theme */}
       <div className="absolute inset-0 overflow-hidden opacity-20">
         {/* Floating AI System Names */}
-        <div className="absolute top-20 left-10 animate-float animation-delay-500 text-white/30 font-bold text-2xl">
+        <div className="absolute top-20 left-10 animate-float animation-delay-500 text-white/40 font-bold text-2xl" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
           ChatGPT
         </div>
-        <div className="absolute top-40 right-20 animate-float animation-delay-1000 text-white/30 font-bold text-2xl">
+        <div className="absolute top-40 right-20 animate-float animation-delay-1000 text-white/40 font-bold text-2xl" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
           Claude
         </div>
-        <div className="absolute bottom-40 left-1/4 animate-float animation-delay-1500 text-white/30 font-bold text-2xl">
+        <div className="absolute bottom-40 left-1/4 animate-float animation-delay-1500 text-white/40 font-bold text-2xl" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
           Gemini
         </div>
-        <div className="absolute top-1/3 right-1/4 animate-float animation-delay-2000 text-white/30 font-bold text-2xl">
+        <div className="absolute top-1/3 right-1/4 animate-float animation-delay-2000 text-white/40 font-bold text-2xl" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
           Perplexity
         </div>
         
         {/* GEO Keywords floating */}
-        <div className="absolute top-1/2 left-20 animate-float animation-delay-500 text-brand-orange/30 font-semibold text-xl">
+        <div className="absolute top-1/2 left-20 animate-float animation-delay-500 text-brand-orange/40 font-semibold text-xl" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
           GEO
         </div>
-        <div className="absolute bottom-1/3 right-1/3 animate-float animation-delay-1000 text-ai-cyan/30 font-semibold text-xl">
+        <div className="absolute bottom-1/3 right-1/3 animate-float animation-delay-1000 text-ai-cyan/40 font-semibold text-xl" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
           Analytics
         </div>
-        <div className="absolute top-2/3 left-1/3 animate-float animation-delay-1500 text-primary/30 font-semibold text-xl">
+        <div className="absolute top-2/3 left-1/3 animate-float animation-delay-1500 text-primary/40 font-semibold text-xl" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
           Visibility
         </div>
-        <div className="absolute bottom-20 right-1/4 animate-float animation-delay-2000 text-brand-orange/30 font-semibold text-xl">
+        <div className="absolute bottom-20 right-1/4 animate-float animation-delay-2000 text-brand-orange/40 font-semibold text-xl" style={{ textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
           AI Search
         </div>
         
@@ -89,13 +89,13 @@ const HeroSection = () => {
         </svg>
         
         {/* Data points/metrics */}
-        <div className="absolute top-1/4 left-1/3 animate-fade-in animation-delay-1000 text-white/25 text-sm font-mono">
+        <div className="absolute top-1/4 left-1/3 animate-fade-in animation-delay-1000 text-white/30 text-sm font-mono" style={{ textShadow: '0 0 8px rgba(0,0,0,0.8)' }}>
           Score: 85%
         </div>
-        <div className="absolute bottom-1/2 right-20 animate-fade-in animation-delay-1500 text-white/25 text-sm font-mono">
+        <div className="absolute bottom-1/2 right-20 animate-fade-in animation-delay-1500 text-white/30 text-sm font-mono" style={{ textShadow: '0 0 8px rgba(0,0,0,0.8)' }}>
           Mentions: 247
         </div>
-        <div className="absolute top-1/2 right-1/3 animate-fade-in animation-delay-2000 text-white/25 text-sm font-mono">
+        <div className="absolute top-1/2 right-1/3 animate-fade-in animation-delay-2000 text-white/30 text-sm font-mono" style={{ textShadow: '0 0 8px rgba(0,0,0,0.8)' }}>
           Rank: #1
         </div>
       </div>
