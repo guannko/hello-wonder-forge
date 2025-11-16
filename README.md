@@ -1,73 +1,59 @@
-# Welcome to your Lovable project
+# AI Visibility Tracker
 
-## Project info
+**AI-powered brand visibility analysis platform** built with React, TypeScript, and Lovable Cloud.
 
-**URL**: https://lovable.dev/projects/02f05da7-a2ab-4460-805e-4798115b9e8c
+🔗 **Live Project**: https://lovable.dev/projects/02f05da7-a2ab-4460-805e-4798115b9e8c
 
-## How can I edit this code?
+## 🚀 For AI Claude: Quick Deployment Guide
 
-There are several ways of editing your application.
+**Hey Claude!** This is a full-stack app with backend already running on Lovable Cloud. You only need to deploy the frontend to Vercel.
 
-**Use Lovable**
+**📖 READ THIS FIRST**: [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) - Complete step-by-step instructions!
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/02f05da7-a2ab-4460-805e-4798115b9e8c) and start prompting.
+### Quick Vercel Deploy:
+1. Import from GitHub: `guannko/hello-wonder-forge`
+2. Add 3 environment variables (see DEPLOYMENT_GUIDE.md)
+3. Click Deploy
+4. Done! ✅
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🏗️ Architecture
 
-**Use your preferred IDE**
+- **Frontend**: React + Vite → Deploy to Vercel
+- **Backend**: PostgreSQL + Edge Functions → Already on Lovable Cloud (no deployment needed!)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 📚 Documentation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **[DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)** - For AI Claude: Step-by-step deployment
+- **[ARCHITECTURE.md](./ARCHITECTURE.md)** - System design & technical details
+- **[.env.example](./.env.example)** - Environment variables
 
-Follow these steps:
+## 🛠️ Tech Stack
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+- React 18 + TypeScript + Vite
+- Shadcn/ui + Tailwind CSS
+- TanStack Query + React Router
+- Supabase (PostgreSQL + Auth + Edge Functions)
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 📦 Project Structure
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+├── src/              # Frontend (deploy to Vercel)
+├── supabase/         # Backend (already on Cloud)
+└── public/           # Static assets
 ```
 
-**Edit a file directly in GitHub**
+## 🔐 Features
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- ✅ Email/Password authentication
+- ✅ Brand visibility analysis
+- ✅ Admin panel
+- ✅ Rate limiting & caching
+- ⚠️ Email notifications (logs only - needs RESEND_API_KEY)
 
-**Use GitHub Codespaces**
+## 📖 Full Documentation in README Files
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+See the detailed guide files for complete information!
 
-## What technologies are used for this project?
+---
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/02f05da7-a2ab-4460-805e-4798115b9e8c) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+**Built with ❤️ using Lovable AI**
