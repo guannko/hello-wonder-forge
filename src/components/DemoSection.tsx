@@ -34,6 +34,8 @@ const DemoSection = () => {
                 loop 
                 muted 
                 playsInline
+                aria-label="Brain Index platform demo showing AI visibility analysis in action"
+                title="AI Visibility Analysis Demo"
               >
                 <source src="/video/demo.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
