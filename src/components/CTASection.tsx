@@ -2,14 +2,46 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { useState } from "react";
+import { useAnalyzeBrand } from "@/hooks/useAnalyzeBrand";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 const CTASection = () => {
   const [brandName, setBrandName] = useState("");
+  const analyzeMutation = useAnalyzeBrand();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
-  const handleAnalyze = () => {
-    if (brandName.trim()) {
-      console.log("Analyzing brand:", brandName);
-      // Here would be the actual analysis logic
+  const handleAnalyze = async () => {
+    if (!brandName.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter a brand name",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!user) {
+      toast({
+        title: "Login Required",
+        description: "Please login to analyze your brand",
+      });
+      navigate("/login");
+      return;
+    }
+
+    try {
+      await analyzeMutation.mutateAsync(brandName);
+      toast({
+        title: "Success!",
+        description: "Brand analysis completed. Check your dashboard.",
+      });
+      navigate("/dashboard/analyses");
+    } catch (error) {
+      // Error is already handled in the hook
     }
   };
 
@@ -43,10 +75,11 @@ const CTASection = () => {
               <Button
                 size="lg"
                 onClick={handleAnalyze}
+                disabled={analyzeMutation.isPending}
                 className="bg-white text-primary hover:bg-white/90 shadow-strong transition-all duration-300 hover:scale-105 h-14 px-8"
               >
                 <Search className="w-5 h-5 mr-2" />
-                Get Free Report
+                {analyzeMutation.isPending ? "Analyzing..." : "Get Free Report"}
               </Button>
             </div>
             <p className="text-white/70 text-sm mt-4">

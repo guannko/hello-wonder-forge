@@ -32,6 +32,9 @@ const Header = () => {
             <a href="#pricing" className="text-foreground hover:text-primary transition-colors">
               Pricing
             </a>
+            <Link to="/n8n-automation" className="text-foreground hover:text-primary transition-colors">
+              Automation
+            </Link>
           </nav>
 
           {/* Desktop Auth Buttons */}
@@ -69,6 +72,9 @@ const Header = () => {
               <a href="#pricing" className="text-foreground hover:text-primary transition-colors">
                 Pricing
               </a>
+              <Link to="/n8n-automation" className="text-foreground hover:text-primary transition-colors">
+                Automation
+              </Link>
               <div className="flex flex-col space-y-2 pt-4">
                 <Button variant="ghost" className="text-foreground hover:text-primary" asChild>
                   <Link to="/login">Login</Link>

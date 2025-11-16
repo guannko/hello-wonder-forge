@@ -20,6 +20,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminAnalyses from "./pages/admin/AdminAnalyses";
 import AdminSettings from "./pages/admin/AdminSettings";
+import N8NAutomation from "./pages/N8NAutomation";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/n8n-automation" element={<N8NAutomation />} />
           
           <Route
             path="/dashboard"
