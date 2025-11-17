@@ -84,13 +84,13 @@ serve(async (req) => {
       }
     }
 
-    // Call Railway API
-    const apiResponse = await fetch('https://primary-production-636cc.up.railway.app/api/analyze', {
+    // Call Railway API (UPDATED: now points to GEO monolith with /100 scale)
+    const apiResponse = await fetch('https://annoris-production.up.railway.app/api/analyzer/analyze', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ brand_name: brandName.trim() }),
+      body: JSON.stringify({ input: brandName.trim(), tier: 'pro' }),
     });
 
     if (!apiResponse.ok) {
