@@ -12,45 +12,87 @@ interface GeoAnalysisResponse {
   gemini?: number;
 }
 
-const analyzeBrand = async (brandName: string): Promise<GeoAnalysisResponse> => {
-  const apiUrl = "https://annoris-production.up.railway.app/api/analyze";
-  
-  console.log("🔍 Attempting Railway API call:", {
-    url: apiUrl,
-    method: "POST",
-    body: { brandName },
-  });
+interface JobResponse {
+  jobId: string;
+  status: string;
+  input: string;
+  tier: string;
+}
 
-  try {
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-      },
-      body: JSON.stringify({ brandName }),
-    });
+interface ResultResponse {
+  jobId: string;
+  status: "pending" | "processing" | "completed" | "failed";
+  result?: {
+    chatgpt?: number;
+    deepseek?: number;
+    mistral?: number;
+    grok?: number;
+    gemini?: number;
+    score?: number;
+    brandName?: string;
+  };
+  error?: string;
+}
 
-    console.log("📡 Railway response status:", response.status);
-    console.log("📡 Railway response headers:", Object.fromEntries(response.headers.entries()));
+const BASE_URL = "https://annoris-production.up.railway.app";
 
+const pollResults = async (jobId: string, maxAttempts = 30): Promise<GeoAnalysisResponse> => {
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    const response = await fetch(`${BASE_URL}/api/analyzer/results/${jobId}`);
+    
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error("❌ Railway API error:", {
-        status: response.status,
-        statusText: response.statusText,
-        body: errorText,
-      });
-      throw new Error(`Railway API error: ${response.status} - ${errorText}`);
+      throw new Error(`Failed to fetch results: ${response.status}`);
     }
 
-    const data = await response.json();
-    console.log("✅ Railway API success:", data);
-    return data;
-  } catch (error) {
-    console.error("❌ Railway API request failed:", error);
-    throw error;
+    const data: ResultResponse = await response.json();
+    console.log(`📊 Poll attempt ${attempt + 1}:`, data.status);
+
+    if (data.status === "completed" && data.result) {
+      console.log("✅ Analysis completed:", data.result);
+      return {
+        chatgpt: data.result.chatgpt,
+        deepseek: data.result.deepseek,
+        mistral: data.result.mistral,
+        grok: data.result.grok,
+        gemini: data.result.gemini,
+      };
+    }
+
+    if (data.status === "failed") {
+      throw new Error(data.error || "Analysis failed");
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 2000));
   }
+
+  throw new Error("Analysis timeout");
+};
+
+const analyzeBrand = async (brandName: string): Promise<GeoAnalysisResponse> => {
+  console.log("🔍 Starting GEO analysis for:", brandName);
+
+  const response = await fetch(`${BASE_URL}/api/analyzer/analyze`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    },
+    body: JSON.stringify({
+      input: brandName,
+      tier: "free",
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error("❌ Job creation failed:", response.status, errorText);
+    throw new Error(`Failed to start analysis: ${response.status}`);
+  }
+
+  const jobData: JobResponse = await response.json();
+  console.log("✅ Job created:", jobData.jobId);
+
+  return pollResults(jobData.jobId);
 };
 
 export const useGeoAnalyze = () => {
