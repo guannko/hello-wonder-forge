@@ -59,9 +59,9 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
   };
 
   const getScoreLevel = (score: number) => {
-    if (score >= 15) return "Good";
-    if (score >= 10) return "Moderate";
-    return "Poor";
+    if (score >= 15) return "Хорошо";
+    if (score >= 10) return "Средне";
+    return "Плохо";
   };
 
   const problemsCount = hasResults
@@ -72,18 +72,18 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle className="text-2xl">Brand AI Visibility Analysis</DialogTitle>
+          <DialogTitle className="text-2xl">Анализ видимости бренда в AI</DialogTitle>
           <DialogDescription>
-            Analyze how AI systems perceive your brand across multiple providers
+            Проанализируйте, как AI-системы воспринимают ваш бренд
           </DialogDescription>
         </DialogHeader>
 
         {!hasResults && (
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium">Brand Name</label>
+              <label className="text-sm font-medium">Название бренда</label>
               <Input
-                placeholder="Enter brand name..."
+                placeholder="Введите название бренда..."
                 value={brandName}
                 onChange={(e) => setBrandName(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleAnalyze()}
@@ -100,12 +100,12 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
               {analyzeMutation.isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Analyzing across 5 AI systems...
+                  Анализ в 5 AI-системах...
                 </>
               ) : (
                 <>
                   <TrendingUp className="mr-2 h-4 w-4" />
-                  Analyze Brand
+                  Анализировать бренд
                 </>
               )}
             </Button>
@@ -114,10 +114,10 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
               <div className="flex items-start gap-2 p-3 bg-destructive/10 border border-destructive/20 rounded-md">
                 <AlertCircle className="h-4 w-4 text-destructive mt-0.5 flex-shrink-0" />
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-destructive">Analysis Error</p>
+                  <p className="text-sm font-medium text-destructive">Ошибка анализа</p>
                   <p className="text-xs text-destructive/80 mt-1">{errorMessage}</p>
                   <p className="text-xs text-muted-foreground mt-2">
-                    Check browser console for details
+                    Проверьте консоль браузера для деталей
                   </p>
                 </div>
               </div>
@@ -129,11 +129,11 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
           <div className="space-y-6 py-4">
             <div className="text-center space-y-2">
               <div className="text-lg font-semibold text-muted-foreground">
-                Analysis Results for
+                Результаты анализа для
               </div>
               <div className="text-3xl font-bold text-foreground">{analyzedBrand}</div>
               <div className="text-5xl font-bold text-primary mt-2">{averageScore}/20</div>
-              <p className="text-sm text-muted-foreground">Average AI Visibility Score</p>
+              <p className="text-sm text-muted-foreground">Средний балл видимости в AI</p>
             </div>
 
             {problemsCount > 0 && (
@@ -142,11 +142,11 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
                   <AlertCircle className="h-5 w-5 text-destructive mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="text-sm font-semibold text-destructive">
-                      {problemsCount} Critical Visibility {problemsCount === 1 ? 'Issue' : 'Issues'} Detected
+                      Обнаружено {problemsCount} {problemsCount === 1 ? 'критическая проблема' : 'критические проблемы'} видимости
                     </p>
                     <p className="text-xs text-destructive/80 mt-1">
-                      Your brand is poorly represented in {problemsCount} major AI system{problemsCount === 1 ? '' : 's'}. 
-                      You're losing potential customers to competitors.
+                      Ваш бренд плохо представлен в {problemsCount} крупн{problemsCount === 1 ? 'ой AI-системе' : 'ых AI-системах'}. 
+                      Вы теряете потенциальных клиентов в пользу конкурентов.
                     </p>
                   </div>
                 </div>
@@ -190,11 +190,11 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
             </div>
 
             <div className="bg-muted/50 rounded-lg p-4 space-y-2">
-              <p className="text-sm font-medium">⚠️ Free Analysis Limitation</p>
+              <p className="text-sm font-medium">⚠️ Ограничение бесплатного анализа</p>
               <p className="text-xs text-muted-foreground">
-                This quick scan reveals surface-level visibility issues. 
-                You're seeing the problem, but not the solution.
-                Get the full report to discover exactly how to fix these issues and dominate AI search results.
+                Эта быстрая проверка выявляет только поверхностные проблемы видимости. 
+                Вы видите проблему, но не решение.
+                Получите полный отчёт, чтобы узнать, как именно исправить эти проблемы и доминировать в AI-поиске.
               </p>
             </div>
 
@@ -208,9 +208,9 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
                 variant="outline"
                 className="flex-1"
               >
-                Analyze Another
+                Анализировать ещё
               </Button>
-              <Button className="flex-1">Get Full Analysis →</Button>
+              <Button className="flex-1">Получить полный анализ →</Button>
             </div>
           </div>
         )}
