@@ -38,10 +38,9 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold text-background mb-4">Product</h4>
             <ul className="space-y-3">
-              <li><a href="#features" className="text-background/70 hover:text-background transition-colors">Features</a></li>
-              <li><a href="#pricing" className="text-background/70 hover:text-background transition-colors">Pricing</a></li>
+              <li><a href="/#features" className="text-background/70 hover:text-background transition-colors">Features</a></li>
+              <li><a href="/#pricing" className="text-background/70 hover:text-background transition-colors">Pricing</a></li>
               <li><a href="/faq" className="text-background/70 hover:text-background transition-colors">FAQ</a></li>
-              <li><a href="/blog" className="text-background/70 hover:text-background transition-colors">Blog</a></li>
               <li><a href="/contact" className="text-background/70 hover:text-background transition-colors">Contact</a></li>
             </ul>
           </div>
@@ -50,6 +49,7 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold text-background mb-4">Company</h4>
             <ul className="space-y-3">
+              <li><a href="/about" className="text-background/70 hover:text-background transition-colors">About Us</a></li>
               <li><a href="/privacy-policy" className="text-background/70 hover:text-background transition-colors">Privacy Policy</a></li>
               <li><a href="/terms" className="text-background/70 hover:text-background transition-colors">Terms of Service</a></li>
             </ul>
@@ -82,14 +82,14 @@ const Footer = () => {
             © 2025 Brain Index. All rights reserved.
           </div>
           <div className="flex space-x-6 text-sm">
-            <a href="#privacy" className="text-background/70 hover:text-background transition-colors">
+            <a href="/privacy-policy" className="text-background/70 hover:text-background transition-colors">
               Privacy Policy
             </a>
-            <a href="#terms" className="text-background/70 hover:text-background transition-colors">
+            <a href="/terms" className="text-background/70 hover:text-background transition-colors">
               Terms of Service
             </a>
-            <a href="#cookies" className="text-background/70 hover:text-background transition-colors">
-              Cookie Policy
+            <a href="/contact" className="text-background/70 hover:text-background transition-colors">
+              Contact
             </a>
           </div>
         </div>
