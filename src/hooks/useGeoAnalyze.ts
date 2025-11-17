@@ -13,14 +13,16 @@ interface GeoAnalysisResponse {
 }
 
 const analyzeBrand = async (brandName: string): Promise<GeoAnalysisResponse> => {
+  const apiUrl = "https://annoris-production.up.railway.app/api/analyze";
+  
   console.log("🔍 Attempting Railway API call:", {
-    url: "https://annoris-production.up.railway.app/analyze",
+    url: apiUrl,
     method: "POST",
     body: { brandName },
   });
 
   try {
-    const response = await fetch("https://annoris-production.up.railway.app/analyze", {
+    const response = await fetch(apiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
