@@ -13,19 +13,42 @@ interface GeoAnalysisResponse {
 }
 
 const analyzeBrand = async (brandName: string): Promise<GeoAnalysisResponse> => {
-  const response = await fetch("https://annoris-production.up.railway.app/analyze", {
+  console.log("🔍 Attempting Railway API call:", {
+    url: "https://annoris-production.up.railway.app/analyze",
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ brandName }),
+    body: { brandName },
   });
 
-  if (!response.ok) {
-    throw new Error("Failed to analyze brand");
-  }
+  try {
+    const response = await fetch("https://annoris-production.up.railway.app/analyze", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+      body: JSON.stringify({ brandName }),
+    });
 
-  return response.json();
+    console.log("📡 Railway response status:", response.status);
+    console.log("📡 Railway response headers:", Object.fromEntries(response.headers.entries()));
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("❌ Railway API error:", {
+        status: response.status,
+        statusText: response.statusText,
+        body: errorText,
+      });
+      throw new Error(`Railway API error: ${response.status} - ${errorText}`);
+    }
+
+    const data = await response.json();
+    console.log("✅ Railway API success:", data);
+    return data;
+  } catch (error) {
+    console.error("❌ Railway API request failed:", error);
+    throw error;
+  }
 };
 
 export const useGeoAnalyze = () => {

@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { useGeoAnalyze } from "@/hooks/useGeoAnalyze";
-import { Loader2, TrendingUp } from "lucide-react";
+import { Loader2, TrendingUp, AlertCircle } from "lucide-react";
 
 interface GeoAnalysisModalProps {
   open: boolean;
@@ -33,6 +33,9 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
 
   const results = analyzeMutation.data;
   const hasResults = results && Object.keys(results).length > 0;
+  const errorMessage = analyzeMutation.error 
+    ? (analyzeMutation.error as Error).message 
+    : "Analysis failed. Please try again.";
 
   const aiProviders = [
     { name: "ChatGPT", key: "chatgpt" as const, color: "hsl(var(--primary))" },
@@ -90,9 +93,16 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
             </Button>
 
             {analyzeMutation.isError && (
-              <p className="text-sm text-destructive">
-                Analysis failed. Please try again.
-              </p>
+              <div className="flex items-start gap-2 p-3 bg-destructive/10 border border-destructive/20 rounded-md">
+                <AlertCircle className="h-4 w-4 text-destructive mt-0.5 flex-shrink-0" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-destructive">Analysis Error</p>
+                  <p className="text-xs text-destructive/80 mt-1">{errorMessage}</p>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Check browser console for details
+                  </p>
+                </div>
+              </div>
             )}
           </div>
         )}
