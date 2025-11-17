@@ -19,12 +19,14 @@ interface GeoAnalysisModalProps {
 
 const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
   const [brandName, setBrandName] = useState("");
+  const [analyzedBrand, setAnalyzedBrand] = useState("");
   const analyzeMutation = useGeoAnalyze();
 
   const handleAnalyze = async () => {
     if (!brandName.trim()) return;
     
     try {
+      setAnalyzedBrand(brandName.trim());
       await analyzeMutation.mutateAsync({ brandName: brandName.trim() });
     } catch (error) {
       console.error("Analysis failed:", error);
@@ -38,9 +40,9 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
     : "Analysis failed. Please try again.";
 
   const aiProviders = [
-    { name: "ChatGPT", key: "chatgpt" as const, color: "hsl(var(--primary))" },
-    { name: "DeepSeek", key: "deepseek" as const, color: "hsl(var(--chart-2))" },
-    { name: "Mistral", key: "mistral" as const, color: "hsl(var(--chart-3))" },
+    { name: "ChatGPT", key: "chatgpt" as const },
+    { name: "DeepSeek", key: "deepseek" as const },
+    { name: "Mistral", key: "mistral" as const },
   ];
 
   const averageScore = hasResults
@@ -48,6 +50,22 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
         Object.values(results).reduce((sum, score) => sum + score, 0) /
           Object.keys(results).length
       )
+    : 0;
+
+  const getScoreColor = (score: number) => {
+    if (score >= 15) return "hsl(142, 76%, 36%)"; // Green
+    if (score >= 10) return "hsl(45, 93%, 47%)"; // Yellow/Orange
+    return "hsl(0, 84%, 60%)"; // Red
+  };
+
+  const getScoreLevel = (score: number) => {
+    if (score >= 15) return "Good";
+    if (score >= 10) return "Moderate";
+    return "Poor";
+  };
+
+  const problemsCount = hasResults
+    ? Object.values(results).filter(score => score < 15).length
     : 0;
 
   return (
@@ -110,32 +128,73 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
         {hasResults && (
           <div className="space-y-6 py-4">
             <div className="text-center space-y-2">
-              <div className="text-5xl font-bold text-primary">{averageScore}/20</div>
+              <div className="text-lg font-semibold text-muted-foreground">
+                Analysis Results for
+              </div>
+              <div className="text-3xl font-bold text-foreground">{analyzedBrand}</div>
+              <div className="text-5xl font-bold text-primary mt-2">{averageScore}/20</div>
               <p className="text-sm text-muted-foreground">Average AI Visibility Score</p>
             </div>
+
+            {problemsCount > 0 && (
+              <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4">
+                <div className="flex items-start gap-2">
+                  <AlertCircle className="h-5 w-5 text-destructive mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="text-sm font-semibold text-destructive">
+                      {problemsCount} Critical Visibility {problemsCount === 1 ? 'Issue' : 'Issues'} Detected
+                    </p>
+                    <p className="text-xs text-destructive/80 mt-1">
+                      Your brand is poorly represented in {problemsCount} major AI system{problemsCount === 1 ? '' : 's'}. 
+                      You're losing potential customers to competitors.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div className="space-y-4">
               {aiProviders.map((provider) => {
                 const score = results[provider.key] ?? 0;
                 const percentage = (score / 20) * 100;
+                const scoreColor = getScoreColor(score);
+                const scoreLevel = getScoreLevel(score);
 
                 return (
                   <div key={provider.key} className="space-y-2">
                     <div className="flex justify-between items-center">
                       <span className="text-sm font-medium">{provider.name}</span>
-                      <span className="text-sm font-bold">{score}/20</span>
+                      <div className="flex items-center gap-2">
+                        <span 
+                          className="text-xs font-medium px-2 py-0.5 rounded"
+                          style={{ 
+                            backgroundColor: `${scoreColor}20`,
+                            color: scoreColor 
+                          }}
+                        >
+                          {scoreLevel}
+                        </span>
+                        <span className="text-sm font-bold">{score}/20</span>
+                      </div>
                     </div>
-                    <Progress value={percentage} className="h-2" />
+                    <Progress 
+                      value={percentage} 
+                      className="h-2"
+                      style={{
+                        ['--progress-background' as string]: scoreColor
+                      } as React.CSSProperties}
+                    />
                   </div>
                 );
               })}
             </div>
 
             <div className="bg-muted/50 rounded-lg p-4 space-y-2">
-              <p className="text-sm font-medium">Analysis Summary</p>
+              <p className="text-sm font-medium">⚠️ Free Analysis Limitation</p>
               <p className="text-xs text-muted-foreground">
-                Your brand visibility score indicates how effectively AI systems recognize
-                and represent your brand. A higher score means better AI visibility.
+                This quick scan reveals surface-level visibility issues. 
+                You're seeing the problem, but not the solution.
+                Get the full report to discover exactly how to fix these issues and dominate AI search results.
               </p>
             </div>
 
@@ -144,13 +203,14 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
                 onClick={() => {
                   analyzeMutation.reset();
                   setBrandName("");
+                  setAnalyzedBrand("");
                 }}
                 variant="outline"
                 className="flex-1"
               >
                 Analyze Another
               </Button>
-              <Button className="flex-1">Get Full Analysis</Button>
+              <Button className="flex-1">Get Full Analysis →</Button>
             </div>
           </div>
         )}
