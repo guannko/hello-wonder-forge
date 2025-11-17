@@ -1,49 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { useState } from "react";
-import { useAnalyzeBrand } from "@/hooks/useAnalyzeBrand";
-import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/contexts/AuthContext";
+import GeoAnalysisModal from "@/components/GeoAnalysisModal";
 
 const CTASection = () => {
-  const [brandName, setBrandName] = useState("");
-  const analyzeMutation = useAnalyzeBrand();
-  const { toast } = useToast();
-  const navigate = useNavigate();
-  const { user } = useAuth();
-
-  const handleAnalyze = async () => {
-    if (!brandName.trim()) {
-      toast({
-        title: "Error",
-        description: "Please enter a brand name",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (!user) {
-      toast({
-        title: "Login Required",
-        description: "Please login to analyze your brand",
-      });
-      navigate("/login");
-      return;
-    }
-
-    try {
-      await analyzeMutation.mutateAsync(brandName);
-      toast({
-        title: "Success!",
-        description: "Brand analysis completed. Check your dashboard.",
-      });
-      navigate("/dashboard/analyses");
-    } catch (error) {
-      // Error is already handled in the hook
-    }
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <section className="py-20 bg-gradient-hero relative overflow-hidden">
@@ -62,32 +23,26 @@ const CTASection = () => {
             Join 10,000+ companies tracking their AI visibility
           </p>
 
-          {/* Form */}
+          {/* CTA Button */}
           <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-8 shadow-strong border border-white/20">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Input
-                type="text"
-                placeholder="Enter your brand name"
-                value={brandName}
-                onChange={(e) => setBrandName(e.target.value)}
-                className="flex-1 bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:bg-white/30 transition-all h-14 text-lg"
-              />
+            <div className="text-center">
               <Button
                 size="lg"
-                onClick={handleAnalyze}
-                disabled={analyzeMutation.isPending}
+                onClick={() => setIsModalOpen(true)}
                 className="bg-white text-primary hover:bg-white/90 shadow-strong transition-all duration-300 hover:scale-105 h-14 px-8"
               >
-                <Search className="w-5 h-5 mr-2" />
-                {analyzeMutation.isPending ? "Analyzing..." : "Get Free Report"}
+                <Sparkles className="w-5 h-5 mr-2" />
+                Get Free Analysis
               </Button>
+              <p className="text-white/70 text-sm mt-4">
+                Free analysis • No credit card required • Results in 60 seconds
+              </p>
             </div>
-            <p className="text-white/70 text-sm mt-4">
-              Free analysis • No credit card required • Results in 60 seconds
-            </p>
           </div>
         </div>
       </div>
+
+      <GeoAnalysisModal open={isModalOpen} onOpenChange={setIsModalOpen} />
     </section>
   );
 };
