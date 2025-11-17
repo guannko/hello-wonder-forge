@@ -82,7 +82,7 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
               {analyzeMutation.isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Analyzing with 5 AI providers...
+                  Analyzing across 5 AI systems...
                 </>
               ) : (
                 <>
