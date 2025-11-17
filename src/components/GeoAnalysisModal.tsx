@@ -53,19 +53,19 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
     : 0;
 
   const getScoreColor = (score: number) => {
-    if (score >= 15) return "hsl(142, 76%, 36%)"; // Green
-    if (score >= 10) return "hsl(45, 93%, 47%)"; // Yellow/Orange
+    if (score >= 70) return "hsl(142, 76%, 36%)"; // Green
+    if (score >= 30) return "hsl(45, 93%, 47%)"; // Yellow/Orange
     return "hsl(0, 84%, 60%)"; // Red
   };
 
   const getScoreLevel = (score: number) => {
-    if (score >= 15) return "Good";
-    if (score >= 10) return "Moderate";
+    if (score >= 70) return "Good";
+    if (score >= 30) return "Moderate";
     return "Poor";
   };
 
   const problemsCount = hasResults
-    ? Object.values(results).filter(score => score < 15).length
+    ? Object.values(results).filter(score => score < 30).length
     : 0;
 
   return (
@@ -132,7 +132,7 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
                 Analysis Results for
               </div>
               <div className="text-3xl font-bold text-foreground">{analyzedBrand}</div>
-              <div className="text-5xl font-bold text-primary mt-2">{averageScore}/20</div>
+              <div className="text-5xl font-bold text-primary mt-2">{averageScore}/100</div>
               <p className="text-sm text-muted-foreground">Average AI Visibility Score</p>
             </div>
 
@@ -156,7 +156,7 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
             <div className="space-y-4">
               {aiProviders.map((provider) => {
                 const score = results[provider.key] ?? 0;
-                const percentage = (score / 20) * 100;
+                const percentage = score; // Score is already 0-100
                 const scoreColor = getScoreColor(score);
                 const scoreLevel = getScoreLevel(score);
 
@@ -174,7 +174,7 @@ const GeoAnalysisModal = ({ open, onOpenChange }: GeoAnalysisModalProps) => {
                         >
                           {scoreLevel}
                         </span>
-                        <span className="text-sm font-bold">{score}/20</span>
+                        <span className="text-sm font-bold">{score}/100</span>
                       </div>
                     </div>
                     <Progress 
