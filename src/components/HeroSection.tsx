@@ -1,49 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ArrowRight, Search, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { useState } from "react";
-import { useAnalyzeBrand } from "@/hooks/useAnalyzeBrand";
-import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/contexts/AuthContext";
+import GeoAnalysisModal from "@/components/GeoAnalysisModal";
 
 const HeroSection = () => {
-  const [brandName, setBrandName] = useState("");
-  const analyzeMutation = useAnalyzeBrand();
-  const { toast } = useToast();
-  const navigate = useNavigate();
-  const { user } = useAuth();
-
-  const handleAnalyze = async () => {
-    if (!brandName.trim()) {
-      toast({
-        title: "Error",
-        description: "Please enter a brand name",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (!user) {
-      toast({
-        title: "Login Required",
-        description: "Please login to analyze your brand",
-      });
-      navigate("/login");
-      return;
-    }
-
-    try {
-      await analyzeMutation.mutateAsync(brandName);
-      toast({
-        title: "Success!",
-        description: "Brand analysis completed. Check your dashboard.",
-      });
-      navigate("/dashboard/analyses");
-    } catch (error) {
-      // Error is already handled in the hook
-    }
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <section id="home" className="pt-20 min-h-screen bg-gradient-hero relative overflow-hidden">
@@ -152,48 +113,26 @@ const HeroSection = () => {
             </p>
           </div>
 
-          {/* Quick Analysis Form - Centered */}
+          {/* Quick Analysis CTA - Centered */}
           <div className="animate-scale-in animation-delay-200">
             <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-strong border border-white/20 max-w-xl mx-auto">
               <div className="space-y-6">
                 <div>
                   <h3 className="text-2xl font-bold text-white mb-2">Quick Analysis</h3>
                   <p className="text-white/80">
-                    Enter your brand name
+                    Check your brand's AI visibility score
                   </p>
                 </div>
 
                 <div className="space-y-4">
-                  <Input
-                    type="text"
-                    placeholder="Enter your brand name"
-                    value={brandName}
-                    onChange={(e) => setBrandName(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        handleAnalyze();
-                      }
-                    }}
-                    className="bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:bg-white/30 transition-all h-12 text-center text-lg"
-                  />
-
                   <Button
                     size="lg"
-                    onClick={handleAnalyze}
-                    disabled={analyzeMutation.isPending}
+                    onClick={() => setIsModalOpen(true)}
                     className="w-full bg-gradient-primary shadow-medium hover:shadow-strong transition-all duration-300 hover:scale-105 h-14 text-lg font-semibold"
                   >
-                    {analyzeMutation.isPending ? (
-                      <>
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                        Analyzing...
-                      </>
-                    ) : (
-                      <>
-                        <Search className="w-5 h-5 mr-2" />
-                        CHECK AI VISIBILITY
-                      </>
-                    )}
+                    <Sparkles className="w-5 h-5 mr-2" />
+                    CHECK AI VISIBILITY
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
 
                   <p className="text-white/60 text-sm">
@@ -221,6 +160,8 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
+
+      <GeoAnalysisModal open={isModalOpen} onOpenChange={setIsModalOpen} />
     </section>
   );
 };
