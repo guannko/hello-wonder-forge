@@ -27,6 +27,10 @@ import SystemMonitoring from "./pages/admin/SystemMonitoring";
 import N8NAutomation from "./pages/N8NAutomation";
 import NotFound from "./pages/NotFound";
 import FAQ from "./pages/FAQ";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Terms from "./pages/Terms";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
 import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
@@ -45,6 +49,10 @@ const App = () => (
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/n8n-automation" element={<N8NAutomation />} />
             <Route path="/faq" element={<FAQ />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/about" element={<About />} />
           
           <Route
             path="/dashboard"
