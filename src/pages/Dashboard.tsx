@@ -132,21 +132,21 @@ export default function Dashboard() {
       title: "View History",
       description: "See all past analyses",
       icon: BarChart3,
-      onClick: () => navigate("/my-analyses"),
+      onClick: () => navigate("/dashboard/analyses"),
       color: "bg-gradient-to-br from-blue-500 to-blue-600"
     },
     {
       title: "Track Competitors",
       description: "Monitor competition",
       icon: Target,
-      onClick: () => navigate("/competitors"),
+      onClick: () => navigate("/dashboard/competitors"),
       color: "bg-gradient-to-br from-purple-500 to-purple-600"
     },
     {
       title: "Automation",
       description: "Set up n8n workflows",
       icon: Zap,
-      onClick: () => navigate("/automation"),
+      onClick: () => navigate("/n8n-automation"),
       color: "bg-gradient-to-br from-orange-500 to-orange-600"
     }
   ];
@@ -226,7 +226,7 @@ export default function Dashboard() {
             <CardDescription>Your latest brand visibility checks</CardDescription>
           </div>
           {analyses && analyses.length > 0 && (
-            <Button variant="ghost" size="sm" onClick={() => navigate("/my-analyses")}>
+            <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard/analyses")}>
               View All
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
@@ -244,7 +244,7 @@ export default function Dashboard() {
                   <div
                     key={analysis.id}
                     className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors cursor-pointer"
-                    onClick={() => navigate(`/analysis/${analysis.id}`)}
+                    onClick={() => navigate(`/dashboard/analyses/${analysis.id}`)}
                   >
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
@@ -307,10 +307,10 @@ export default function Dashboard() {
               Consider improving your content strategy and online presence.
             </p>
             <div className="flex gap-3">
-              <Button variant="outline" size="sm" onClick={() => navigate("/automation")}>
+              <Button variant="outline" size="sm" onClick={() => navigate("/n8n-automation")}>
                 Setup Automation
               </Button>
-              <Button variant="outline" size="sm" onClick={() => navigate("/competitors")}>
+              <Button variant="outline" size="sm" onClick={() => navigate("/dashboard/competitors")}>
                 Compare with Competitors
               </Button>
             </div>
