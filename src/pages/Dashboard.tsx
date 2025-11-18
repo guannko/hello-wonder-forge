@@ -1,13 +1,17 @@
 import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileText, TrendingUp, Users, Clock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { FileText, TrendingUp, Users, Clock, Plus } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
 import OnboardingTour from "@/components/OnboardingTour";
+import GeoAnalysisModal from "@/components/GeoAnalysisModal";
+import { useState } from "react";
 
 export default function Dashboard() {
   const { user } = useAuth();
+  const [showAnalysisModal, setShowAnalysisModal] = useState(false);
 
   const { data: analyses } = useQuery({
     queryKey: ["analyses", user?.id],
@@ -73,12 +77,19 @@ export default function Dashboard() {
   return (
     <div className="space-y-8">
       <OnboardingTour />
+      <GeoAnalysisModal open={showAnalysisModal} onOpenChange={setShowAnalysisModal} />
       
-      <div>
-        <h1 className="text-4xl font-bold mb-2">Welcome back!</h1>
-        <p className="text-muted-foreground">
-          Here's an overview of your AI visibility performance
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-4xl font-bold mb-2">Welcome back!</h1>
+          <p className="text-muted-foreground">
+            Here's an overview of your AI visibility performance
+          </p>
+        </div>
+        <Button onClick={() => setShowAnalysisModal(true)} size="lg">
+          <Plus className="h-5 w-5 mr-2" />
+          New Analysis
+        </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
