@@ -81,6 +81,7 @@ const App = () => (
             }
           >
             <Route index element={<AdminDashboard />} />
+            <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="users" element={<AdminUsers />} />
             <Route path="analyses" element={<AdminAnalyses />} />
             <Route path="system" element={<SystemMonitoring />} />
